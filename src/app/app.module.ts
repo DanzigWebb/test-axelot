@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Config
+import { CONFIG_TOKEN, CONFIG_DATA } from '@shared/config';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +17,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: CONFIG_TOKEN,
+      useValue: CONFIG_DATA
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
