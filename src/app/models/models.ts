@@ -25,3 +25,7 @@ export interface IFormDataItem<T> {
   ID: string;
   value: T;
 }
+
+export interface IConfig {
+  host: string;
+}
