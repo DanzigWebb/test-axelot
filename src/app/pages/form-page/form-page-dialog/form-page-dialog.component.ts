@@ -12,7 +12,6 @@ export class FormPageDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IFormData
   ) {
-    console.log(data);
   }
 
   ngOnInit(): void {

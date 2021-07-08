@@ -29,13 +29,14 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.awaitData()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe();
+    this.awaitData().pipe(
+      takeUntil(this.unsubscribe$)
+    ).subscribe();
 
-    this.awaitForm()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe();
+    this.awaitForm().pipe(
+      tap((form) => this.headerService.toggleDataAvailability(!!form)),
+      takeUntil(this.unsubscribe$)
+    ).subscribe();
   }
 
   awaitData(): Observable<IFormData | undefined> {
@@ -81,7 +82,6 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   sendData() {
-    console.log(this.form?.getData());
     this.dialog.open(FormPageDialogComponent, {
       data: this.form?.getData()
     });

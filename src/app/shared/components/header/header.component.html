@@ -2,8 +2,22 @@
   <header class="header">
     <div class="container">
       <div class="header-controls">
-        <button mat-flat-button (click)="updateForm()">Обновить форму</button>
-        <button mat-flat-button (click)="updateData()">Обновить данные</button>
+
+        <button
+          mat-flat-button
+          (click)="updateForm()"
+        >
+          <span>Обновить форму</span>
+        </button>
+
+        <button
+          mat-flat-button
+          (click)="updateData()"
+          [disabled]="!(canUpdate$ | async)"
+        >
+          <span>Обновить данные</span>
+        </button>
+
       </div>
     </div>
   </header>
