@@ -5,6 +5,7 @@ import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ApiService } from '@services/api.service';
 import { IFormData } from '@models/models';
 import { Form } from '@models/form';
+import { DialogsService } from '@components/dialogs/dialogs.service';
 
 @Component({
   selector: 'app-form-page',
@@ -19,7 +20,8 @@ export class FormPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private headerService: HeaderService,
-    private api: ApiService
+    private api: ApiService,
+    private dialogs: DialogsService
   ) {
   }
 
@@ -33,7 +35,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  awaitData() {
+  awaitData(): Observable<IFormData | undefined> {
     return this.headerService.updateDataEmits$.pipe(
       switchMap(() => this.getData())
     );
@@ -44,11 +46,14 @@ export class FormPageComponent implements OnInit, OnDestroy {
       tap((data) => {
         data && this.form?.updateData(data);
       }),
-      catchError(() => of(undefined))
+      catchError(() => {
+        this.showError('Не удалось получить данные');
+        return of(undefined);
+      })
     );
   }
 
-  awaitForm() {
+  awaitForm(): Observable<Form | undefined> {
     return this.headerService.updateFormEmits$.pipe(
       switchMap(() => this.getForm())
     );
@@ -59,8 +64,17 @@ export class FormPageComponent implements OnInit, OnDestroy {
       tap(form => {
         this.form = form;
       }),
-      catchError(() => of(undefined))
+      catchError(() => {
+        this.showError('Не удалось получить данные');
+        return of(undefined);
+      })
     );
+  }
+
+  showError(message: string) {
+    return this.dialogs.showError({
+      data: message
+    });
   }
 
   ngOnDestroy() {
