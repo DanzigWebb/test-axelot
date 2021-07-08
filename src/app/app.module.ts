@@ -10,6 +10,7 @@ import { CONFIG_TOKEN, CONFIG_DATA } from '@shared/config';
 import { FormPageModule } from '@pages/form-page/form-page.module';
 import { HeaderModule } from '@components/header/header.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogsModule } from '@components/dialogs/dialogs.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,10 @@ import { HttpClientModule } from '@angular/common/http';
 
     // Pages
     FormPageModule,
-    HeaderModule
+    HeaderModule,
+
+    // Components
+    DialogsModule
   ],
   providers: [
     {

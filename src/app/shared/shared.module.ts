@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDividerModule
   ],
   exports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDividerModule
   ]
 })
 export class SharedModule {
