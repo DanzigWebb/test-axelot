@@ -2,7 +2,7 @@ import { Form } from './form';
 import { IForm, IFormData } from '@models/models';
 
 const fakeForm: IForm = {
-  columns: [{
+  rows: [{
     inputs: [{
       ID: '1',
       text: 'text',

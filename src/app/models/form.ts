@@ -5,7 +5,7 @@ export class Form {
   controls: { [key: string]: null | string | number | boolean } = {};
 
   constructor(form: IForm) {
-    this.rows = form.columns;
+    this.rows = form.rows;
     this.createControls(form);
   }
 
@@ -23,7 +23,7 @@ export class Form {
   }
 
   private createControls = (form: IForm) => {
-    form.columns.forEach(c => {
+    form.rows.forEach(c => {
       c.inputs.forEach(input => {
         const {ID} = input;
         this.controls[ID] = null;

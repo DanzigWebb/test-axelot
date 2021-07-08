@@ -1,5 +1,5 @@
 export interface IForm {
-  columns: IFormColumn[];
+  rows: IFormColumn[];
 }
 
 export interface IFormColumn {

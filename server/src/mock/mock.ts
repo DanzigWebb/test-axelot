@@ -1,7 +1,7 @@
 import { IForm, IFormData } from '../models/models';
 
 export const INITIAL_FORM: IForm = {
-  columns: [
+  rows: [
     {
       inputs: [
         {

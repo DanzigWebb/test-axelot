@@ -10,7 +10,7 @@ const fakeConfig: IConfig = {
 };
 
 const getFormMock: IForm = {
-  columns: [{
+  rows: [{
     inputs: [{
       ID: '1',
       inputType: 'string',
