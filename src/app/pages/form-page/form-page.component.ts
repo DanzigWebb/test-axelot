@@ -6,6 +6,8 @@ import { ApiService } from '@services/api.service';
 import { IFormData } from '@models/models';
 import { Form } from '@models/form';
 import { DialogsService } from '@components/dialogs/dialogs.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FormPageDialogComponent } from '@pages/form-page/form-page-dialog/form-page-dialog.component';
 
 @Component({
   selector: 'app-form-page',
@@ -21,6 +23,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
   constructor(
     private headerService: HeaderService,
     private api: ApiService,
+    private dialog: MatDialog,
     private dialogs: DialogsService
   ) {
   }
@@ -74,6 +77,13 @@ export class FormPageComponent implements OnInit, OnDestroy {
   showError(message: string) {
     return this.dialogs.showError({
       data: message
+    });
+  }
+
+  sendData() {
+    console.log(this.form?.getData());
+    this.dialog.open(FormPageDialogComponent, {
+      data: this.form?.getData()
     });
   }
 

@@ -1,4 +1,4 @@
-import { IForm, IFormColumn, IFormData } from '@models/models';
+import { IForm, IFormColumn, IFormData, IFormDataItem } from '@models/models';
 
 export class Form {
   rows: IFormColumn[] = [];
@@ -20,6 +20,16 @@ export class Form {
     formData.items.forEach(item => {
       this.controls[item.ID] = item.value;
     });
+  }
+
+  public getData(): IFormData {
+    const items = <IFormDataItem<string | boolean | number>[]>Object.keys(this.controls)
+      .filter(key => this.controls[key] !== null)
+      .map(key => ({ID: key, value: this.controls[key]}));
+
+    return {
+      items
+    };
   }
 
   private createControls = (form: IForm) => {
