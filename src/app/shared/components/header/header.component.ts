@@ -16,11 +16,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  emitUpdateForm(): void {
+  updateForm(): void {
     this.service.emitForm();
   }
 
-  emitUpdateData(): void {
+  updateData(): void {
     this.service.emitData();
   }
 }
