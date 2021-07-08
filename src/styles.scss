@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import "vars";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.container {
+  max-width: $container_width;
+  margin: 0 auto;
+  padding: 0 $gutter;
+  box-sizing: border-box;
+}
+
+.page {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: $gutter;
+
+  &-content {
+    width: 100%;
+  }
+}
