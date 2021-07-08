@@ -7,8 +7,15 @@ export const INITIAL_FORM: IForm = {
         {
           ID: '1',
           inputType: 'string',
-          text: 'Ваше имя',
+          text: 'Имя',
           placeholder: 'Например, Иван',
+          required: true
+        },
+        {
+          ID: '2',
+          inputType: 'string',
+          text: 'Фамилия',
+          placeholder: 'Иванов',
           required: true
         },
         {
@@ -26,7 +33,7 @@ export const INITIAL_FORM: IForm = {
           ID: '3',
           inputType: 'string',
           text: 'Город',
-          placeholder: 'г. Москва',
+          placeholder: 'Москва',
           required: true
         },
         {
@@ -37,7 +44,7 @@ export const INITIAL_FORM: IForm = {
           required: true
         },
         {
-          ID: '5',
+          ID: '4',
           inputType: 'int',
           text: 'Дом',
           placeholder: '13',
@@ -48,7 +55,7 @@ export const INITIAL_FORM: IForm = {
     {
       inputs: [
         {
-          ID: '6',
+          ID: '5',
           inputType: 'string',
           text: 'Дополнительная информация',
           placeholder: 'Домофон *55...',
@@ -59,7 +66,7 @@ export const INITIAL_FORM: IForm = {
     {
       inputs: [
         {
-          ID: '7',
+          ID: '6',
           inputType: 'boolean',
           text: 'Согласине на обработку персональных данных',
           required: true
@@ -84,7 +91,7 @@ export const FORM_DATA: IFormData = {
       value: 'Москва'
     },
     {
-      ID: '7',
+      ID: '6',
       value: true
     }
   ]

@@ -1,15 +1,16 @@
 <div class="form">
   <div class="form-content" *ngIf="form">
-    <div class="form-row" *ngFor="let row of form.columns">
-      <div class="form-input" *ngFor="let input of row.inputs">
+    <div class="form-row" *ngFor="let row of form.rows">
 
+      <div class="form-input" *ngFor="let input of row.inputs">
         <ng-container *ngIf="input.inputType === 'boolean'; else defaultInput">
-          <mat-checkbox [(ngModel)]="controls[input.ID]"></mat-checkbox>
+          <mat-checkbox [(ngModel)]="form.controls[input.ID]" color="primary">
+            {{input.text}}
+          </mat-checkbox>
         </ng-container>
 
         <ng-template #defaultInput>
-          <mat-form-field>
-
+          <mat-form-field class="form-field">
             <mat-label *ngIf="input.text">
               {{input.text}}
             </mat-label>
@@ -17,16 +18,15 @@
             <input
               matInput
               type="text"
-              [(ngModel)]="controls[input.ID]"
+              [(ngModel)]="form.controls[input.ID]"
               [placeholder]="input.placeholder || ''"
               [required]="input.required"
               [id]="input.ID"
             >
-
           </mat-form-field>
         </ng-template>
-
       </div>
+
     </div>
   </div>
 </div>

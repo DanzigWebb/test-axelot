@@ -3,7 +3,8 @@ import { HeaderService } from '@components/header/header.service';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ApiService } from '@services/api.service';
-import { IForm, IFormData } from '@models/models';
+import { IFormData } from '@models/models';
+import { Form } from '@models/form';
 
 @Component({
   selector: 'app-form-page',
@@ -12,10 +13,7 @@ import { IForm, IFormData } from '@models/models';
 })
 export class FormPageComponent implements OnInit, OnDestroy {
 
-  data: IFormData | undefined;
-  form: IForm | undefined;
-
-  controls: { [key: string]: any } = {};
+  form: Form | undefined;
 
   private unsubscribe$ = new Subject();
 
@@ -44,13 +42,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
   getData(): Observable<IFormData | undefined> {
     return this.api.getData().pipe(
       tap((data) => {
-        this.data = data || undefined;
-        if (data) {
-          this.resetForm();
-          data.items.forEach(item => {
-            this.controls[item.ID] = item.value;
-          });
-        }
+        data && this.form?.updateData(data);
       }),
       catchError(() => of(undefined))
     );
@@ -62,29 +54,13 @@ export class FormPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  getForm(): Observable<IForm | undefined> {
-    const createControls = (form: IForm) => {
-      form.columns.forEach(c => {
-        c.inputs.forEach(input => {
-          const {ID} = input;
-          this.controls[ID] = '';
-        });
-      });
-    };
-
+  getForm(): Observable<Form | undefined> {
     return this.api.getForm().pipe(
-      tap((form) => {
-        createControls(form);
-        this.form = form || undefined;
+      tap(form => {
+        this.form = form;
       }),
       catchError(() => of(undefined))
     );
-  }
-
-  resetForm() {
-    Object.keys(this.controls).forEach(key => {
-      this.controls[key] = null;
-    });
   }
 
   ngOnDestroy() {

@@ -3,6 +3,8 @@ import { CONFIG_TOKEN } from '@shared/config';
 import { IConfig, IForm, IFormData } from '@models/models';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Form } from '@models/form';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +21,10 @@ export class ApiService {
   ) {
   }
 
-  public getForm(): Observable<IForm> {
-    return this.http.get<IForm>(`${this.url}/getForm`);
+  public getForm(): Observable<Form> {
+    return this.http.get<IForm>(`${this.url}/getForm`).pipe(
+      map(form => new Form(form))
+    );
   }
 
   public getData(): Observable<IFormData> {
