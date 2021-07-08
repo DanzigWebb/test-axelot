@@ -8,6 +8,9 @@ import { SharedModule } from '../../shared.module';
   declarations: [
     HeaderComponent
   ],
+  exports: [
+    HeaderComponent
+  ],
   imports: [
     CommonModule,
     SharedModule
