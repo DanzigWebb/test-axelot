@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CONFIG_TOKEN, CONFIG_DATA } from '@shared/config';
 import { FormPageModule } from '@pages/form-page/form-page.module';
 import { HeaderModule } from '@components/header/header.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HeaderModule } from '@components/header/header.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
 
     // Pages
     FormPageModule,
