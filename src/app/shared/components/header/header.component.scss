@@ -1,7 +1,17 @@
+@import "vars";
+
 .toolbar {
   justify-content: stretch;
 }
 
 .header {
   width: 100%;
+
+  &-controls {
+    button {
+      &:not(:first-child) {
+        margin-left: $gutter;
+      }
+    }
+  }
 }

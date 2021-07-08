@@ -1,7 +1,10 @@
 <mat-toolbar class="toolbar">
   <header class="header">
     <div class="container">
-      Im Header
+      <div class="header-controls">
+        <button mat-flat-button (click)="emitUpdateForm()">Обновить форму</button>
+        <button mat-flat-button (click)="emitUpdateData()">Обновить данные</button>
+      </div>
     </div>
   </header>
 </mat-toolbar>
