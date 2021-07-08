@@ -15,6 +15,8 @@ export class FormPageComponent implements OnInit, OnDestroy {
   data: IFormData | undefined;
   form: IForm | undefined;
 
+  controls: { [key: string]: any } = {};
+
   private unsubscribe$ = new Subject();
 
   constructor(
@@ -43,6 +45,12 @@ export class FormPageComponent implements OnInit, OnDestroy {
     return this.api.getData().pipe(
       tap((data) => {
         this.data = data || undefined;
+        if (data) {
+          this.resetForm();
+          data.items.forEach(item => {
+            this.controls[item.ID] = item.value;
+          });
+        }
       }),
       catchError(() => of(undefined))
     );
@@ -55,12 +63,28 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   getForm(): Observable<IForm | undefined> {
+    const createControls = (form: IForm) => {
+      form.columns.forEach(c => {
+        c.inputs.forEach(input => {
+          const {ID} = input;
+          this.controls[ID] = '';
+        });
+      });
+    };
+
     return this.api.getForm().pipe(
       tap((form) => {
+        createControls(form);
         this.form = form || undefined;
       }),
       catchError(() => of(undefined))
     );
+  }
+
+  resetForm() {
+    Object.keys(this.controls).forEach(key => {
+      this.controls[key] = null;
+    });
   }
 
   ngOnDestroy() {

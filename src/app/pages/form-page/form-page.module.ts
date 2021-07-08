@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FormPageRoutingModule } from './form-page-routing.module';
 import { FormPageComponent } from './form-page.component';
+import { SharedModule } from '@shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { FormPageComponent } from './form-page.component';
   ],
   imports: [
     CommonModule,
-    FormPageRoutingModule
+    FormPageRoutingModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class FormPageModule { }
