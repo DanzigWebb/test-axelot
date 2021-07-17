@@ -1,5 +1,6 @@
-import { Form } from './form';
-import { IForm, IFormData } from '@models/models';
+import { IForm, IFormData } from '@models/models.interface';
+import { Form } from '@models/form.model';
+
 
 const fakeForm: IForm = {
   rows: [{

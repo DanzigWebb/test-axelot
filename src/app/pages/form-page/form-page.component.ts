@@ -3,11 +3,11 @@ import { HeaderService } from '@components/header/header.service';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ApiService } from '@services/api.service';
-import { IFormData } from '@models/models';
-import { Form } from '@models/form';
 import { DialogsService } from '@components/dialogs/dialogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormPageDialogComponent } from '@pages/form-page/form-page-dialog/form-page-dialog.component';
+import { Form } from '@models/form.model';
+import { IFormData } from '@models/models.interface';
 
 @Component({
   selector: 'app-form-page',

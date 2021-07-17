@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IFormData } from '@models/models';
+import { IFormData } from '@models/models.interface';
 
 @Component({
   selector: 'app-form-page-dialog',

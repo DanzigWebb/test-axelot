@@ -1,4 +1,5 @@
-import { IForm, IFormColumn, IFormData, IFormDataItem } from '@models/models';
+import { IForm, IFormColumn, IFormData, IFormDataItem } from '@models/models.interface';
+
 
 export class Form {
   rows: IFormColumn[] = [];
