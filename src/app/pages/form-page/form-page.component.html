@@ -3,39 +3,18 @@
     <div class="form-row" *ngFor="let row of form.rows">
 
       <div class="form-input" *ngFor="let input of row.inputs">
-        <ng-container *ngIf="input.type === 'checkbox'; else defaultInput">
-          <mat-checkbox
-            [(ngModel)]="form.controls[input.ID].value"
-            [name]="input.ID"
-            color="primary"
-            [required]="input.required"
-          >
-            {{input.label}}
-          </mat-checkbox>
-        </ng-container>
-
-        <ng-template #defaultInput>
-          <mat-form-field class="form-field">
-            <mat-label *ngIf="input.label">
-              {{input.label}}
-            </mat-label>
-
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="form.controls[input.ID].value"
-              [name]="input.ID"
-              [placeholder]="input.placeholder || ''"
-              [required]="input.required"
-              [id]="input.ID"
-            >
-          </mat-form-field>
-        </ng-template>
+        <app-input
+          [control]="input"
+          [(ngModel)]="input.value"
+          [name]="input.ID"
+          [required]="input.required">
+        </app-input>
       </div>
 
     </div>
 
     <div class="form-action">
+
       <button
         mat-flat-button
         color="primary"

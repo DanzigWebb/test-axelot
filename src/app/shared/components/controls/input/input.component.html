@@ -1,0 +1,24 @@
+<div class="control" *ngIf="control">
+  <ng-container [ngSwitch]="control.type">
+    <mat-form-field *ngSwitchCase="'input'" class="control-field">
+
+      <mat-label *ngIf="control.label">
+        <span>{{control.label}}</span>
+      </mat-label>
+
+      <input
+        type="text"
+        matInput
+        [formControl]="input"
+        [placeholder]="control.placeholder || ''"
+        [required]="control.required"
+      >
+
+    </mat-form-field>
+
+    <mat-checkbox *ngSwitchCase="'checkbox'" color="primary" [formControl]="input">
+      {{control.label}}
+    </mat-checkbox>
+  </ng-container>
+</div>
+
