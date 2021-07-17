@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Config
-import { CONFIG_TOKEN, CONFIG_DATA } from '@shared/config';
+import { CONFIG_DATA, CONFIG_TOKEN } from '@core/config';
+
 import { FormPageModule } from '@pages/form-page/form-page.module';
 import { HeaderModule } from '@components/header/header.module';
 import { HttpClientModule } from '@angular/common/http';

@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
-import { CONFIG_TOKEN } from '@shared/config';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IConfig, IForm, IFormData } from '@models/models.interface';
 import { Form } from '@models/form.model';
+import { CONFIG_TOKEN } from '@core/config';
+
 
 @Injectable({
   providedIn: 'root'

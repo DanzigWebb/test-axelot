@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { ApiService } from '@services/api.service';
 import { IConfig, IForm } from '@models/models';
-import { CONFIG_TOKEN } from '@shared/config';
+import { CONFIG_TOKEN } from '@shared/../../core/config';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 const fakeConfig: IConfig = {
