@@ -5,7 +5,7 @@
       <div class="form-input" *ngFor="let input of row.inputs">
         <ng-container *ngIf="input.type === 'checkbox'; else defaultInput">
           <mat-checkbox
-            [(ngModel)]="form.controls[input.ID]"
+            [(ngModel)]="form.controls[input.ID].value"
             [name]="input.ID"
             color="primary"
             [required]="input.required"
@@ -23,7 +23,7 @@
             <input
               matInput
               type="text"
-              [(ngModel)]="form.controls[input.ID]"
+              [(ngModel)]="form.controls[input.ID].value"
               [name]="input.ID"
               [placeholder]="input.placeholder || ''"
               [required]="input.required"

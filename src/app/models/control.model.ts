@@ -3,7 +3,7 @@ import { IFormInput, IFormInputType } from '@models/models.interface';
 
 export type ControlValueType = string | string[] | number | number[] | boolean;
 
-export class Control<T = ControlValueType> {
+export class Control {
   readonly ID: string;
   readonly required: boolean;
   readonly type: IFormInputType;
@@ -11,7 +11,7 @@ export class Control<T = ControlValueType> {
   readonly placeholder?: string;
   readonly label?: string;
 
-  public value: T | null = null;
+  public value: ControlValueType | null = null;
 
   constructor(c: IFormInput) {
     this.ID = c.ID;

@@ -12,42 +12,42 @@ class FormColumn {
 
 export class Form {
   rows: FormColumn[] = [];
-  controls: { [key: string]: null | string | number | boolean } = {};
+  controls: { [key: string]: Control } = {};
 
   constructor(form: IForm) {
     this.rows = form.rows.map(r => new FormColumn(r));
-    this.createControls(form);
+    this.createControls(this.rows);
   }
 
   public resetControls() {
     Object.keys(this.controls).forEach(key => {
-      this.controls[key] = null;
+      this.controls[key].value = null;
     });
   }
 
   public updateData(formData: IFormData) {
     this.resetControls();
     formData.items.forEach(item => {
-      this.controls[item.ID] = item.value;
+      this.controls[item.ID].value = item.value;
     });
   }
 
   public getData(): IFormData {
     const items = <IFormDataItem<string | boolean | number>[]>Object
       .keys(this.controls)
-      .filter(key => this.controls[key] !== null)
-      .map(key => ({ID: key, value: this.controls[key]}));
+      .filter(key => this.controls[key].value !== null)
+      .map(key => ({ID: key, value: this.controls[key].value}));
 
     return {
       items
     };
   }
 
-  private createControls = (form: IForm) => {
-    form.rows.forEach(c => {
+  private createControls = (rows: FormColumn[]) => {
+    rows.forEach(c => {
       c.inputs.forEach(input => {
         const {ID} = input;
-        this.controls[ID] = null;
+        this.controls[ID] = input;
       });
     });
   };
