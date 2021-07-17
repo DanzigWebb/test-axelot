@@ -3,21 +3,21 @@
     <div class="form-row" *ngFor="let row of form.rows">
 
       <div class="form-input" *ngFor="let input of row.inputs">
-        <ng-container *ngIf="input.inputType === 'boolean'; else defaultInput">
+        <ng-container *ngIf="input.type === 'checkbox'; else defaultInput">
           <mat-checkbox
             [(ngModel)]="form.controls[input.ID]"
             [name]="input.ID"
             color="primary"
             [required]="input.required"
           >
-            {{input.text}}
+            {{input.label}}
           </mat-checkbox>
         </ng-container>
 
         <ng-template #defaultInput>
           <mat-form-field class="form-field">
-            <mat-label *ngIf="input.text">
-              {{input.text}}
+            <mat-label *ngIf="input.label">
+              {{input.label}}
             </mat-label>
 
             <input

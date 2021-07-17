@@ -13,9 +13,10 @@ export interface IFormInput {
   required: boolean;
 
   placeholder?: string;
+  options?: Array<string | number | boolean>;
 }
 
-export type IFormInputType = 'int' | 'string' | 'boolean';
+export type IFormInputType = 'input' | 'textarea' | 'checkbox' | 'select';
 
 
 export interface IFormData {

@@ -6,21 +6,21 @@ export const INITIAL_FORM: IForm = {
       inputs: [
         {
           ID: 'row1_1',
-          inputType: 'string',
+          inputType: 'input',
           text: 'Имя',
           placeholder: 'Например, Иван',
           required: true
         },
         {
           ID: 'row1_2',
-          inputType: 'string',
+          inputType: 'input',
           text: 'Фамилия',
           placeholder: 'Иванов',
           required: true
         },
         {
           ID: 'row1_3',
-          inputType: 'int',
+          inputType: 'input',
           text: 'Номер телефона',
           placeholder: '89005556565',
           required: true
@@ -31,21 +31,21 @@ export const INITIAL_FORM: IForm = {
       inputs: [
         {
           ID: 'row2_1',
-          inputType: 'string',
+          inputType: 'input',
           text: 'Город',
           placeholder: 'Москва',
           required: true
         },
         {
           ID: 'row2_2',
-          inputType: 'string',
+          inputType: 'input',
           text: 'Улица',
           placeholder: 'Калинина',
           required: true
         },
         {
           ID: 'row2_3',
-          inputType: 'int',
+          inputType: 'input',
           text: 'Дом',
           placeholder: '13',
           required: true
@@ -56,7 +56,7 @@ export const INITIAL_FORM: IForm = {
       inputs: [
         {
           ID: 'row3_1',
-          inputType: 'string',
+          inputType: 'input',
           text: 'Дополнительная информация',
           placeholder: 'Домофон *55...',
           required: false
@@ -67,7 +67,7 @@ export const INITIAL_FORM: IForm = {
       inputs: [
         {
           ID: 'row4_1',
-          inputType: 'boolean',
+          inputType: 'checkbox',
           text: 'Согласине на обработку персональных данных',
           required: true
         }

@@ -1,12 +1,21 @@
 import { IForm, IFormColumn, IFormData, IFormDataItem } from '@models/models.interface';
+import { Control } from '@models/control.model';
 
+
+class FormColumn {
+  inputs: Control[] = [];
+
+  constructor(row: IFormColumn) {
+    this.inputs = row.inputs.map(i => new Control(i));
+  }
+}
 
 export class Form {
-  rows: IFormColumn[] = [];
+  rows: FormColumn[] = [];
   controls: { [key: string]: null | string | number | boolean } = {};
 
   constructor(form: IForm) {
-    this.rows = form.rows;
+    this.rows = form.rows.map(r => new FormColumn(r));
     this.createControls(form);
   }
 
@@ -24,7 +33,8 @@ export class Form {
   }
 
   public getData(): IFormData {
-    const items = <IFormDataItem<string | boolean | number>[]>Object.keys(this.controls)
+    const items = <IFormDataItem<string | boolean | number>[]>Object
+      .keys(this.controls)
       .filter(key => this.controls[key] !== null)
       .map(key => ({ID: key, value: this.controls[key]}));
 
