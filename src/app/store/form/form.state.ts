@@ -1,15 +1,15 @@
 import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
-import { Form } from '@models/form.model';
+import { Form, FormColumn } from '@models/form.model';
 import { Injectable } from '@angular/core';
 import { FormActions } from '@src/app/store/form/form.actions';
 import { ApiService } from '@services/api.service';
 import { tap } from 'rxjs/operators';
 import { Control } from '@models/control.model';
-import { patch } from '@ngxs/store/operators';
 import { IFormData } from '@models/models.interface';
 
 export interface FormStateModel {
   form: Form | null;
+  controls: Record<string, Control>
 }
 
 export const FORM_STATE_TOKEN = new StateToken<FormStateModel>('form');
@@ -17,7 +17,8 @@ export const FORM_STATE_TOKEN = new StateToken<FormStateModel>('form');
 @State<FormStateModel>({
   name: FORM_STATE_TOKEN,
   defaults: {
-    form: null
+    form: null,
+    controls: {}
   }
 })
 @Injectable()
@@ -26,15 +27,26 @@ export class FormState {
   }
 
   @Selector()
+  static state(state: FormStateModel): FormStateModel {
+    return state;
+  }
+
+  @Selector()
   static form(state: FormStateModel): Form | null {
     return state.form;
+  }
+
+  @Selector()
+  static controls(state: FormStateModel): Record<string, Control> {
+    return state.controls;
   }
 
   @Action(FormActions.Fetch)
   fetch(ctx: StateContext<FormStateModel>) {
     return this.api.getForm().pipe(
       tap((form) => {
-        ctx.setState({...ctx.getState(), form: form});
+        const controls = this.createControls(form.rows);
+        ctx.setState({...ctx.getState(), form, controls});
       })
     );
   }
@@ -43,21 +55,26 @@ export class FormState {
   update(ctx: StateContext<FormStateModel>) {
     return this.api.getData().pipe(
       tap((data) => {
-        const controls = this.updateControls(ctx.getState().form!.controls, data);
-
-        ctx.setState(
-          // @ts-ignore
-          patch({
-            form: patch({
-              controls
-            })
-          })
-        );
+        const controls = this.getUpdatedControls(ctx.getState().controls, data);
+        ctx.setState({...ctx.getState(), controls});
       })
     );
   }
 
-  resetControls(initialControls: Record<string, Control>): Record<string, Control> {
+  private createControls(rows: FormColumn[]): Record<string, Control> {
+    const output: Record<string, Control> = {};
+
+    rows.forEach(c => {
+      c.inputs.forEach(input => {
+        const {ID} = input;
+        output[ID] = input;
+      });
+    });
+
+    return output;
+  };
+
+  private getDroppedControls(initialControls: Record<string, Control>): Record<string, Control> {
     const output: Record<string, Control> = {};
 
     Object.keys(initialControls).forEach(key => {
@@ -67,12 +84,15 @@ export class FormState {
     return output;
   }
 
-  updateControls(initialControls: Record<string, Control>, data: IFormData): Record<string, Control> {
-    const controls = this.resetControls(initialControls);
-    data.items.forEach((item) => {
-      const id = item.ID;
-      controls[id].value = item.value;
-    });
+  private getUpdatedControls(initialControls: Record<string, Control>, data: IFormData): Record<string, Control> {
+    const controls = this.getDroppedControls(initialControls);
+
+    if (Object.keys(controls).length) {
+      data.items.forEach((item) => {
+        const id = item.ID;
+        controls[id].value = item.value;
+      });
+    }
 
     return controls;
   }

@@ -5,7 +5,6 @@ import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ApiService } from '@services/api.service';
 import { DialogsService } from '@components/dialogs/dialogs.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FormPageDialogComponent } from '@pages/form-page/form-page-dialog/form-page-dialog.component';
 import { Form } from '@models/form.model';
 import { IFormData } from '@models/models.interface';
 
@@ -47,9 +46,9 @@ export class FormPageComponent implements OnInit, OnDestroy {
 
   getData(): Observable<IFormData | undefined> {
     return this.api.getData().pipe(
-      tap((data) => {
-        data && this.form?.updateData(data);
-      }),
+      // tap((data) => {
+      //   data && this.form?.updateData(data);
+      // }),
       catchError(() => {
         this.showError('Не удалось получить данные');
         return of(undefined);
@@ -82,9 +81,9 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   sendData() {
-    this.dialog.open(FormPageDialogComponent, {
-      data: this.form?.getData()
-    });
+    // this.dialog.open(FormPageDialogComponent, {
+    //   data: this.form?.getData()
+    // });
   }
 
   ngOnDestroy() {
