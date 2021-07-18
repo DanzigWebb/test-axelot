@@ -1,11 +1,11 @@
-<form class="form" #f="ngForm">
-  <div class="form-content" *ngIf="form">
+<form class="form" #f="ngForm" *ngIf="(state$ | async) as state">
+  <div class="form-content" *ngIf="state.form as form">
     <div class="form-row" *ngFor="let row of form.rows">
 
       <div class="form-input" *ngFor="let input of row.inputs">
         <app-input
-          [control]="input"
-          [(ngModel)]="input.value"
+          [control]="state.controls[input.ID]"
+          [(ngModel)]="state.controls[input.ID].value"
           [name]="input.ID"
           [required]="input.required">
         </app-input>

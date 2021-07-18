@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderService } from '@components/header/header.service';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ApiService } from '@services/api.service';
 import { DialogsService } from '@components/dialogs/dialogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Form } from '@models/form.model';
 import { IFormData } from '@models/models.interface';
+import { FormFacade } from '@src/app/store/form/form.facade';
+import { FormStateModel } from '@src/app/store/form/form.state';
 
 @Component({
   selector: 'app-form-page',
@@ -15,13 +16,13 @@ import { IFormData } from '@models/models.interface';
 })
 export class FormPageComponent implements OnInit, OnDestroy {
 
-  form: Form | undefined;
+  state$: Observable<FormStateModel> = this.formFacade.state$;
 
   private unsubscribe$ = new Subject();
 
   constructor(
     private headerService: HeaderService,
-    private api: ApiService,
+    private formFacade: FormFacade,
     private dialog: MatDialog,
     private dialogs: DialogsService
   ) {
@@ -45,10 +46,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   getData(): Observable<IFormData | undefined> {
-    return this.api.getData().pipe(
-      // tap((data) => {
-      //   data && this.form?.updateData(data);
-      // }),
+    return this.formFacade.update().pipe(
       catchError(() => {
         this.showError('Не удалось получить данные');
         return of(undefined);
@@ -63,10 +61,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   getForm(): Observable<Form | undefined> {
-    return this.api.getForm().pipe(
-      tap(form => {
-        this.form = form;
-      }),
+    return this.formFacade.fetch().pipe(
       catchError(() => {
         this.showError('Не удалось получить данные');
         return of(undefined);
@@ -81,9 +76,6 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   sendData() {
-    // this.dialog.open(FormPageDialogComponent, {
-    //   data: this.form?.getData()
-    // });
   }
 
   ngOnDestroy() {
