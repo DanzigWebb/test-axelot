@@ -13,6 +13,8 @@ import { HeaderModule } from '@components/header/header.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogsModule } from '@components/dialogs/dialogs.module';
 
+import { FormStateModule } from '@src/app/store/form/form.state.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -28,7 +30,9 @@ import { DialogsModule } from '@components/dialogs/dialogs.module';
     HeaderModule,
 
     // Components
-    DialogsModule
+    DialogsModule,
+    // Store
+    FormStateModule
   ],
   providers: [
     {
