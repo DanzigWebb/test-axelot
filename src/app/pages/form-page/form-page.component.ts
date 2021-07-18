@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderService } from '@components/header/header.service';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { DialogsService } from '@components/dialogs/dialogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Form } from '@models/form.model';
-import { IFormData } from '@models/models.interface';
+import { IFormData, IFormDataItem } from '@models/models.interface';
 import { FormFacade } from '@src/app/store/form/form.facade';
 import { FormStateModel } from '@src/app/store/form/form.state';
+import { FormPageDialogComponent } from '@pages/form-page/form-page-dialog/form-page-dialog.component';
 
 @Component({
   selector: 'app-form-page',
@@ -16,7 +17,7 @@ import { FormStateModel } from '@src/app/store/form/form.state';
 })
 export class FormPageComponent implements OnInit, OnDestroy {
 
-  state$: Observable<FormStateModel> = this.formFacade.state$;
+  public state$: Observable<FormStateModel> = this.formFacade.state$;
 
   private unsubscribe$ = new Subject();
 
@@ -76,6 +77,17 @@ export class FormPageComponent implements OnInit, OnDestroy {
   }
 
   sendData() {
+    this.formFacade.controls$.pipe(
+      take(1),
+      map((controls): IFormData => {
+        const items = <IFormDataItem<any>[]>Object.keys(controls).map(key => ({
+          ID: key,
+          value: controls[key].value
+        }));
+        return {items};
+      }),
+      map((data) => this.dialog.open(FormPageDialogComponent, {data}))
+    ).subscribe();
   }
 
   ngOnDestroy() {

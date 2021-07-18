@@ -16,10 +16,7 @@ export const FORM_STATE_TOKEN = new StateToken<FormStateModel>('form');
 
 @State<FormStateModel>({
   name: FORM_STATE_TOKEN,
-  defaults: {
-    form: null,
-    controls: {}
-  }
+  defaults: undefined
 })
 @Injectable()
 export class FormState {

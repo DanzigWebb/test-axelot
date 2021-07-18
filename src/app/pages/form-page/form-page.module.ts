@@ -7,6 +7,7 @@ import { SharedModule } from '@shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { FormPageDialogComponent } from './form-page-dialog/form-page-dialog.component';
 import { InputModule } from '@components/controls/input/input.module';
+import { NgxsFormPluginModule } from '@ngxs/form-plugin';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { InputModule } from '@components/controls/input/input.module';
     FormPageRoutingModule,
     SharedModule,
     FormsModule,
-    InputModule
+    InputModule,
+    NgxsFormPluginModule
   ]
 })
 export class FormPageModule { }

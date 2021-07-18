@@ -1,29 +1,33 @@
-<form class="form" #f="ngForm" *ngIf="(state$ | async) as state">
-  <div class="form-content" *ngIf="state.form as form">
-    <div class="form-row" *ngFor="let row of form.rows">
+<ng-container *ngIf="(state$ | async) as state">
+  <form class="form" #f="ngForm" *ngIf="state.form as form">
+    <div class="form-content">
+      <div class="form-row" *ngFor="let row of form.rows">
 
-      <div class="form-input" *ngFor="let input of row.inputs">
-        <app-input
-          [control]="state.controls[input.ID]"
-          [(ngModel)]="state.controls[input.ID].value"
-          [name]="input.ID"
-          [required]="input.required">
-        </app-input>
+        <div class="form-input" *ngFor="let input of row.inputs">
+          <app-input
+            [control]="state.controls[input.ID]"
+            [(ngModel)]="state.controls[input.ID].value"
+            [name]="input.ID"
+            [required]="input.required">
+          </app-input>
+        </div>
+
+      </div>
+
+      <div class="form-action">
+
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="sendData()"
+          [disabled]="f.invalid"
+        >
+          <span>Отправить</span>
+        </button>
       </div>
 
     </div>
+  </form>
+</ng-container>
 
-    <div class="form-action">
 
-      <button
-        mat-flat-button
-        color="primary"
-        (click)="sendData()"
-        [disabled]="f.invalid"
-      >
-        <span>Отправить</span>
-      </button>
-    </div>
-
-  </div>
-</form>
