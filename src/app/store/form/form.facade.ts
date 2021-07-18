@@ -18,5 +18,9 @@ export class FormFacade {
   fetch() {
     return this.store.dispatch(new FormActions.Fetch());
   }
+
+  update() {
+    return this.store.dispatch(new FormActions.Update());
+  }
 }
 
