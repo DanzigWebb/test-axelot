@@ -6,7 +6,9 @@ export enum UserStorageEnum {
   token = 'token',
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserStorage extends AbstractStorage {
   key = 'user';
 }

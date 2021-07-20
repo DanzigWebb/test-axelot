@@ -12,14 +12,17 @@ interface AbstractStorageImpl {
   clear: () => void;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AbstractStorage implements AbstractStorageImpl {
   storage: Storage;
   key: string = 'global';
-  state: StorageState = this.getLocal();
+  state: StorageState;
 
   constructor(@Inject(DOCUMENT) private doc: Document) {
     this.storage = doc.defaultView!.localStorage;
+    this.state = this.getLocal();
   }
 
   setItem<T>(key: string, value: T) {
