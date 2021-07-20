@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserActions } from '@store/user/user.actions';
 import { UserService } from '@services/user.service';
 import { tap } from 'rxjs/operators';
+import { UserStorage, UserStorageEnum } from '@core/storage';
 
 export interface UserStateModel {
   isLogin: boolean;
@@ -22,7 +23,8 @@ export const USER_STATE_TOKEN = new StateToken<UserStateModel>('user');
 export class UserState {
 
   constructor(
-    private user: UserService
+    private user: UserService,
+    private storage: UserStorage
   ) {
   }
 
@@ -38,6 +40,9 @@ export class UserState {
         const {name, token} = data;
         const isLogin = true;
 
+        this.storage.setItem(UserStorageEnum.name, data.name);
+        this.storage.setItem(UserStorageEnum.token, data.token);
+
         ctx.setState({...ctx.getState(), name, token, isLogin});
       })
     );
@@ -45,8 +50,7 @@ export class UserState {
 
   @Action(UserActions.Logout)
   logout(ctx: StateContext<UserStateModel>) {
-    ctx.setState({
-      isLogin: false
-    });
+    ctx.setState({isLogin: false});
+    this.storage.clear();
   }
 }

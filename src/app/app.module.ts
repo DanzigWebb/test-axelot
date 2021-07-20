@@ -13,8 +13,7 @@ import { HeaderModule } from '@components/header/header.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogsModule } from '@components/dialogs/dialogs.module';
 
-import { FormStateModule } from '@src/app/store/form/form.state.module';
-import { UserStateModule } from '@store/user/user.state.module';
+import { AppStoreModule } from '@store/store.module';
 
 @NgModule({
   declarations: [
@@ -33,14 +32,13 @@ import { UserStateModule } from '@store/user/user.state.module';
     // Components
     DialogsModule,
     // Store
-    UserStateModule,
-    FormStateModule
+    AppStoreModule,
   ],
   providers: [
     {
       provide: CONFIG_TOKEN,
       useValue: CONFIG_DATA
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })
