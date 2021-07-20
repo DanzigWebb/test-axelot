@@ -21,6 +21,6 @@ export class UserService {
   }
 
   login(data: IUserLoginData): Observable<IUserLoginResponse> {
-    return this.http.post<IUserLoginResponse>(`${this.url}login`, data);
+    return this.http.post<IUserLoginResponse>(`${this.url}/login`, data);
   }
 }
