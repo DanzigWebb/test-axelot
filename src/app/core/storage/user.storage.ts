@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractStorage } from '@core/storage';
+import { AbstractStorage } from '@core/storage/abstract.storage';
 
 export enum UserStorageEnum {
   name = 'name',
