@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DialogsModule } from '@components/dialogs/dialogs.module';
 
 import { FormStateModule } from '@src/app/store/form/form.state.module';
+import { UserStateModule } from '@store/user/user.state.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FormStateModule } from '@src/app/store/form/form.state.module';
     // Components
     DialogsModule,
     // Store
+    UserStateModule,
     FormStateModule
   ],
   providers: [
