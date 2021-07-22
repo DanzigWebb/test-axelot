@@ -5,8 +5,8 @@
 
         <div class="form-input" *ngFor="let input of row.inputs">
           <app-input
-            [control]="state.controls[input.ID]"
-            [(ngModel)]="state.controls[input.ID].value"
+            [control]="controls[input.ID]"
+            [(ngModel)]="controls[input.ID].value"
             [name]="input.ID"
             [required]="input.required">
           </app-input>
@@ -19,7 +19,7 @@
         <button
           mat-flat-button
           color="primary"
-          (click)="sendData()"
+          (click)="showData()"
           [disabled]="f.invalid"
         >
           <span>Отправить</span>
