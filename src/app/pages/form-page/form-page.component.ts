@@ -97,7 +97,7 @@ export class FormPageComponent implements OnInit, OnDestroy {
 
   private parseFormData(): IFormData {
     const items = Object.keys(this.controls)
-      .filter((key) => !!this.controls[key])
+      .filter((key) => !!this.controls[key].value)
       .reduce((acc, key) => {
         const ID = key;
         const value = this.controls[key].value;
