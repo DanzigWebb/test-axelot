@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderService } from '@components/header/header.service';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogsService } from '@components/dialogs/dialogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Form } from '@models/form.model';
@@ -9,6 +9,7 @@ import { IFormData, IFormDataItem } from '@models/models.interface';
 import { FormFacade } from '@src/app/store/form/form.facade';
 import { FormStateModel } from '@src/app/store/form/form.state';
 import { FormPageDialogComponent } from '@pages/form-page/form-page-dialog/form-page-dialog.component';
+import { Control } from '@models/control.model';
 
 @Component({
   selector: 'app-form-page',
@@ -17,7 +18,14 @@ import { FormPageDialogComponent } from '@pages/form-page/form-page-dialog/form-
 })
 export class FormPageComponent implements OnInit, OnDestroy {
 
-  public state$: Observable<FormStateModel> = this.formFacade.state$;
+  public controls: Record<string, Control> = {};
+
+  public state$: Observable<FormStateModel> = this.formFacade.state$.pipe(
+    filter(s => !!s.form),
+    tap((form) => {
+      this.controls = this.cloneControls(form.controls);
+    })
+  );
 
   private unsubscribe$ = new Subject();
 
@@ -39,6 +47,12 @@ export class FormPageComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$)
     ).subscribe();
   }
+
+  private cloneControls = (controls: Record<string, Control>): Record<string, Control> => (
+    Object.keys(controls).reduce(
+      (acc, key) => (acc[key] = {...controls[key]}) && acc, {} as Record<string, Control>
+    )
+  );
 
   awaitData(): Observable<IFormData | undefined> {
     return this.headerService.updateDataEmits$.pipe(
@@ -76,18 +90,21 @@ export class FormPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  sendData() {
-    this.formFacade.controls$.pipe(
-      take(1),
-      map((controls): IFormData => {
-        const items = <IFormDataItem<any>[]>Object.keys(controls).map(key => ({
-          ID: key,
-          value: controls[key].value
-        }));
-        return {items};
-      }),
-      map((data) => this.dialog.open(FormPageDialogComponent, {data}))
-    ).subscribe();
+  showData(): void {
+    const data = this.parseFormData();
+    this.dialog.open(FormPageDialogComponent, {data});
+  }
+
+  private parseFormData(): IFormData {
+    const items = Object.keys(this.controls)
+      .filter((key) => !!this.controls[key])
+      .reduce((acc, key) => {
+        const ID = key;
+        const value = this.controls[key].value;
+        return [...acc, {ID, value}];
+      }, [] as IFormDataItem<any>[]);
+
+    return {items};
   }
 
   ngOnDestroy() {
