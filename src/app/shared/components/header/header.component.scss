@@ -8,10 +8,17 @@
   width: 100%;
 
   &-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     button {
       &:not(:first-child) {
         margin-left: $gutter;
       }
     }
+  }
+
+  .spacer {
+    flex: 1;
   }
 }

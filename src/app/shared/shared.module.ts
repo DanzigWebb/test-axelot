@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDialogModule,
     MatIconModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule
   ],
   exports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDialogModule,
     MatIconModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTooltipModule
   ]
 })
 export class SharedModule {
