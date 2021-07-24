@@ -1,19 +1,19 @@
 <div class="login">
-  <form class="login-form" #f="ngForm">
+  <form class="login-form" [formGroup]="form">
     <mat-form-field>
       <mat-label>Login</mat-label>
-      <input type="email" matInput placeholder="Ivan" [(ngModel)]="formData.name" #nameInput="ngModel" name="name" required autocomplete="off">
+      <input type="text" matInput placeholder="Ivan" formControlName="name" autocomplete="off">
       <mat-error>
-        <span *ngIf="nameInput.control.errors?.required">Required field</span>
-        <span *ngIf="nameInput.control.errors?.invalidLogin">Invalid login or password</span>
+        <span *ngIf="nameInput?.errors?.required">Required field</span>
+        <span *ngIf="invalidError">Invalid login or password</span>
       </mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Password</mat-label>
-      <input type="password" matInput placeholder="****" [(ngModel)]="formData.password" name="password" required>
+      <input type="password" matInput placeholder="****" formControlName="password">
       <mat-error>Required field</mat-error>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" (click)="login(f)">Send</button>
+    <button mat-flat-button color="primary" (click)="login()">Login</button>
   </form>
 </div>
