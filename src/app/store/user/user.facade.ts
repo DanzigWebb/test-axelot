@@ -22,4 +22,8 @@ export class UserFacade {
   logout() {
     return this.store.dispatch(new UserActions.Logout());
   }
+
+  updateByStorage() {
+    return this.store.dispatch(new UserActions.UpdateByStorage());
+  }
 }

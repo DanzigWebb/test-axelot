@@ -53,4 +53,16 @@ export class UserState {
     ctx.setState({isLogin: false});
     this.storage.clear();
   }
+
+  @Action(UserActions.UpdateByStorage)
+  updateByStorage(ctx: StateContext<UserStateModel>) {
+    const name = this.storage.getItem<string>(UserStorageEnum.name);
+    const token = this.storage.getItem<string>(UserStorageEnum.token);
+
+    if (name && token) {
+      ctx.setState({
+        name, token, isLogin: true
+      });
+    }
+  }
 }

@@ -8,6 +8,10 @@ export namespace UserActions {
     }
   }
 
+  export class UpdateByStorage {
+    static readonly type = '[User] update by storage';
+  }
+
   export class Logout {
     static readonly type = '[User] logout';
   }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,12 @@ import { DialogsModule } from '@components/dialogs/dialogs.module';
 
 import { AppStoreModule } from '@store/store.module';
 import { LoginPageModule } from '@pages/login-page/login-page.module';
+import { UserFacade } from '@store/user/user.facade';
+import { UserStorage } from '@core/storage';
+
+function initializeApp(userFacade: UserFacade) {
+  return () => userFacade.updateByStorage();
+}
 
 @NgModule({
   declarations: [
@@ -34,13 +40,19 @@ import { LoginPageModule } from '@pages/login-page/login-page.module';
     // Components
     DialogsModule,
     // Store
-    AppStoreModule,
+    AppStoreModule
   ],
   providers: [
     {
       provide: CONFIG_TOKEN,
       useValue: CONFIG_DATA
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [UserFacade],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

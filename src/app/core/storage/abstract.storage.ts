@@ -18,10 +18,14 @@ interface AbstractStorageImpl {
 export class AbstractStorage implements AbstractStorageImpl {
   storage: Storage;
   key: string = 'global';
-  state: StorageState;
+  state!: StorageState;
 
-  constructor(@Inject(DOCUMENT) private doc: Document) {
+  constructor(@Inject(DOCUMENT) public doc: Document) {
     this.storage = doc.defaultView!.localStorage;
+    this.init()
+  }
+
+  protected init() {
     this.state = this.getLocal();
   }
 
@@ -44,7 +48,7 @@ export class AbstractStorage implements AbstractStorageImpl {
     this.update();
   }
 
-  private update() {
+  protected update() {
     try {
       this.storage.setItem(this.key, JSON.stringify(this.state));
     } catch (e) {
@@ -52,7 +56,7 @@ export class AbstractStorage implements AbstractStorageImpl {
     }
   }
 
-  private getLocal(): StorageState {
+  protected getLocal(): StorageState {
     try {
       const storage = this.storage.getItem(this.key);
       return JSON.parse(storage || '{}');
