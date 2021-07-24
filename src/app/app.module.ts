@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DialogsModule } from '@components/dialogs/dialogs.module';
 
 import { AppStoreModule } from '@store/store.module';
+import { LoginPageModule } from '@pages/login-page/login-page.module';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,9 @@ import { AppStoreModule } from '@store/store.module';
 
     // Pages
     FormPageModule,
-    HeaderModule,
+    LoginPageModule,
 
+    HeaderModule,
     // Components
     DialogsModule,
     // Store
