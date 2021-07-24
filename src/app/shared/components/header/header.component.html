@@ -1,7 +1,7 @@
 <mat-toolbar class="toolbar">
   <header class="header">
     <div class="container">
-      <div class="header-controls">
+      <div class="header-controls" *ngIf="(showControl$ | async)">
 
         <button
           mat-flat-button

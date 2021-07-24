@@ -8,7 +8,8 @@ import { HeaderService } from '@components/header/header.service';
 })
 export class HeaderComponent implements OnInit {
 
-  canUpdate$ = this.service.canUpdateData$;
+  public canUpdate$ = this.service.canUpdateData$;
+  public showControl$ = this.service.isLogin$;
 
   constructor(
     private service: HeaderService

@@ -33,6 +33,11 @@ export class UserState {
     return state;
   }
 
+  @Selector()
+  static isLogin(state: UserStateModel): boolean {
+    return state.isLogin;
+  }
+
   @Action(UserActions.Login)
   login(ctx: StateContext<UserStateModel>, action: UserActions.Login) {
     return this.user.login(action.data).pipe(

@@ -9,6 +9,7 @@ import { UserState, UserStateModel } from '@store/user/user.state';
 @Injectable()
 export class UserFacade {
   @Select(UserState.state) state$!: Observable<UserStateModel>;
+  @Select(UserState.isLogin) isLogin$!: Observable<boolean>;
 
   constructor(
     private store: Store
