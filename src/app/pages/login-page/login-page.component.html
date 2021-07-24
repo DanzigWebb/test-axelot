@@ -2,9 +2,10 @@
   <form class="login-form" #f="ngForm">
     <mat-form-field>
       <mat-label>Login</mat-label>
-      <input type="email" matInput placeholder="Ivan" [(ngModel)]="formData.login" #name="ngModel" name="name" required autocomplete="off">
+      <input type="email" matInput placeholder="Ivan" [(ngModel)]="formData.name" #nameInput="ngModel" name="name" required autocomplete="off">
       <mat-error>
-        <span>Required field</span>
+        <span *ngIf="nameInput.control.errors?.required">Required field</span>
+        <span *ngIf="nameInput.control.errors?.invalidLogin">Invalid login or password</span>
       </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -13,6 +14,6 @@
       <mat-error>Required field</mat-error>
     </mat-form-field>
 
-    <button mat-flat-button color="primary">Send</button>
+    <button mat-flat-button color="primary" (click)="login(f)">Send</button>
   </form>
 </div>
