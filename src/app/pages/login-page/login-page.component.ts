@@ -6,6 +6,7 @@ import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { Observable, Subject, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DialogsService } from '@components/dialogs/dialogs.service';
 
 enum LoginValidatorsEnum {
   name = 'invalidLogin'
@@ -33,7 +34,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(
     private user: UserFacade,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialogs: DialogsService
   ) {
   }
 
@@ -73,7 +75,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
-    this.addInvalidError();
+    if (error.status === 404) {
+      this.addInvalidError();
+    } else {
+      const message = error.message;
+      this.showError(message);
+    }
     return throwError(error);
   }
 
@@ -90,6 +97,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   private addInvalidError() {
     this.form.get('name')?.setErrors({[LoginValidatorsEnum.name]: true});
+  }
+
+  private showError(message: string) {
+    return this.dialogs.showError({data: message});
   }
 
   ngOnDestroy() {
